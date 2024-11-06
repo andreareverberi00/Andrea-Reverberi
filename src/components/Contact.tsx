@@ -1,8 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin } from 'lucide-react';
+import { Mail, Loader2, Linkedin, Github } from 'lucide-react';
+
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
 
 export default function Contact() {
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      console.log('Sending data:', formData);
+      const response = await fetch('http://localhost:3000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      console.log('Response status:', response.status);
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error details:', errorData);
+        throw new Error('Failed to send message');
+      }
+
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.id]: e.target.value
+    }));
+  };
+
   return (
     <div className="min-h-screen flex items-center py-20">
       <div className="container mx-auto px-4">
@@ -19,47 +73,91 @@ export default function Contact() {
             </p>
           </div>
 
-          <div className="bg-gray-800 rounded-lg p-8">
-            <form className="space-y-6">
+          <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-8 shadow-xl border border-gray-700">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                    Name
+                    Name *
                   </label>
                   <input
                     type="text"
                     id="name"
-                    className="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-violet-400 focus:border-transparent"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    disabled={isSubmitting}
+                    className="w-full bg-gray-700/50 border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-violet-400 focus:border-transparent disabled:opacity-50"
                   />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Email
+                    Email *
                   </label>
                   <input
                     type="email"
                     id="email"
-                    className="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-violet-400 focus:border-transparent"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    disabled={isSubmitting}
+                    className="w-full bg-gray-700/50 border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-violet-400 focus:border-transparent disabled:opacity-50"
                   />
                 </div>
               </div>
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                  Message
+                  Message *
                 </label>
                 <textarea
                   id="message"
                   rows={4}
-                  className="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-violet-400 focus:border-transparent"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  disabled={isSubmitting}
+                  className="w-full bg-gray-700/50 border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-violet-400 focus:border-transparent disabled:opacity-50"
                 ></textarea>
               </div>
+
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full bg-violet-600 text-white font-semibold py-3 rounded-lg hover:bg-violet-700 transition-colors"
+                disabled={isSubmitting}
+                className="w-full bg-violet-600 text-white font-semibold py-3 rounded-lg hover:bg-violet-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Mail className="w-5 h-5" />
+                    Send Message
+                  </>
+                )}
               </motion.button>
+
+              {submitStatus === 'success' && (
+                <motion.p 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-green-400 text-center"
+                >
+                  Message sent successfully! I'll get back to you soon.
+                </motion.p>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.p 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-red-400 text-center"
+                >
+                  Failed to send message. Please try again or contact me directly at andrea@mrmoon.com
+                </motion.p>
+              )}
             </form>
 
             <div className="mt-8 pt-8 border-t border-gray-700">
