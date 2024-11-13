@@ -71,8 +71,7 @@ export default function Hero() {
             variants={itemVariants}
             className="text-xl md:text-2xl text-gray-300 mb-12 max-w-2xl mx-auto"
           >
-            Passionate Italian game designer crafting immersive experiences through innovative mechanics 
-            and compelling narratives. Specializing in Unreal Engine and Unity development.
+            Italian game designer with a knack for creating immersive experiences through inventive mechanics and engaging narratives. specialized in unreal engine and unity, with a strong foundation in programming and game design documentation
           </motion.p>
           
           <motion.div

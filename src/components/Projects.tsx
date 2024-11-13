@@ -1,40 +1,44 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, PlayCircle } from 'lucide-react';
+import turboTrash from '../assets/turboTrash.png';
 
 export default function Projects() {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   const projects = [
     {
-      title: "Project 1",
-      description: "A challenging puzzle-platformer that tests players' problem-solving abilities through innovative mechanics and intricate level design. Features dynamic environment interactions and a unique art style.",
-      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=1200&q=80",
-      tags: ["Unreal Engine", "Blueprint", "Level Design"],
+      title: "Turbo Trash",
+      description: "turbo trash is a mobile hyper-casual game aimed at teaching waste management with an eco-conscious twist. you play as a sorting robot using 'TecLev' levitation technology to grab and fling various objects into the correct bins: glass, paper, plastic, organic, and metals/e-waste. the game has a strict yet friendly boss (a voice on the speaker) encouraging you to do your best, rewarding accuracy, and penalizing mistakes by draining your energy. objects roll down an increasingly fast conveyor belt, with overtime periods intensifying the pace. you can also unlock perks and different antennas to tweak gameplay and adapt to challenges. the ultimate goal? to become 'employee of the month' and beat high scores on the leaderboard. visually, it’s a mix of futuristic tech and cartoonish style, with a 'clean industrial' look, despite being set in a waste collection center.",
+      image: turboTrash,
+      tags: ["Unity", "C#"],
       details: {
-        engine: "Unreal Engine 5",
-        role: "Lead Game Designer",
-        duration: "8 months",
+        engine: "Unity",
+        role: "Game Designer",
+        duration: "6 months",
         responsibilities: [
-          "Core gameplay mechanics design",
+          "Core gameplay mechanics and systems",
           "Level design and progression",
-          "Player feedback systems"
+          "Player feedback systems",
+          "Gameplay testing and iteration",
+          "Sound design"
         ]
       }
     },
     {
-      title: "Project 2",
-      description: "An atmospheric narrative-driven adventure game where player choices shape the story. Incorporates branching dialogues and multiple endings, creating a highly replayable experience.",
+      title: "Lost Balance",
+      description: "Lost Balance is a survival horror game that revolves around maintaining equilibrium on three emotional axes: anxiety/calm, fear/rashness, and depression/euphoria. players navigate these axes in response to various environmental factors and objects, balancing their emotions to prevent hitting an extreme, which would lead to game over.",
       image: "https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?auto=format&fit=crop&w=1200&q=80",
-      tags: ["Unity", "Ink", "Narrative Design"],
+      tags: ["Unreal Engine", "Blueprint", "Narrative Design"],
       details: {
-        engine: "Unity",
-        role: "Game Designer & Narrative Lead",
+        engine: "Unreal Engine 5",
+        role: "Game Designer",
         duration: "6 months",
         responsibilities: [
-          "Story development and branching narratives",
-          "Character design",
-          "Dialogue system implementation"
+          "Story development",
+          "Core gameplay mechanics and systems",
+          "Gameplay testing and iteration",
+          "Sound design"
         ]
       }
     }
