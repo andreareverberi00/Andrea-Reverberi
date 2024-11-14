@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, PlayCircle } from 'lucide-react';
-import turboTrash from '../assets/turboTrash.png';
+import turboTrash from '../assets/TurboTrash.png';
 
 export default function Projects() {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
