@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Loader2, Linkedin, Github } from 'lucide-react';
+import { Mail, Loader2, Linkedin, Github, Instagram } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -165,15 +165,19 @@ export default function Contact() {
                 <motion.a
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  href="#"
+                  href="https://instagram.com/andreareverberi_"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-400 hover:text-violet-400 transition-colors"
                 >
-                  <Mail size={24} />
+                  <Instagram size={24} />
                 </motion.a>
                 <motion.a
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  href="#"
+                  href="https://github.com/andreareverberi00"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-400 hover:text-violet-400 transition-colors"
                 >
                   <Github size={24} />
@@ -181,7 +185,9 @@ export default function Contact() {
                 <motion.a
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  href="#"
+                  href="https://linkedin.com/in/andrea-reverberi-041a7b240"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-400 hover:text-violet-400 transition-colors"
                 >
                   <Linkedin size={24} />

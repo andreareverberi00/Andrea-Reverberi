@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Gamepad2, Layout, Briefcase } from 'lucide-react';
+import { Code2, Gamepad2, Layout, Briefcase, Instagram, Linkedin } from 'lucide-react';
 
 export default function About() {
   const containerVariants = {
@@ -102,7 +102,24 @@ export default function About() {
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-2 text-violet-400">Contact</h4>
-              <p className="text-gray-300">andrea@mrmoon.com</p>
+              <a 
+                href="https://www.instagram.com/andreareverberi_/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-300 flex items-center gap-2 hover:text-violet-400 transition-colors"
+              >
+                <Instagram className="w-5 h-5" />
+                Instagram
+              </a> 
+              <a 
+                href="https://www.linkedin.com/in/andrea-reverberi-041a7b240/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-300 flex items-center gap-2 mt-2 hover:text-violet-400 transition-colors"
+              >
+                <Linkedin className="w-5 h-5" />
+                LinkedIn
+              </a> 
               <p className="text-gray-400 mt-2">Feel free to reach out for collaborations or opportunities</p>
             </div>
           </div>

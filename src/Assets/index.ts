@@ -1,1 +1,4 @@
-export { default as turboTrash } from './TurboTrash.png';
+import TurboTrash from './TurboTrash.png';
+import LostBalance from './LostBalance.png';
+
+export { TurboTrash, LostBalance };
