@@ -8,6 +8,7 @@ import Contact from "./components/Contact";
 import Navigation from "./components/Navigation";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProjectDetails from "./components/ProjectDetails";
+import emailjs from '@emailjs/browser';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,6 +20,10 @@ function App() {
     }, 2000);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    emailjs.init(import.meta.env.VITE_PUBLIC_EMAILJS_PUBLIC_KEY);
   }, []);
 
   return (

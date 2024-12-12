@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Loader2, Linkedin, Github, Instagram } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 interface FormData {
   name: string;
@@ -23,27 +24,23 @@ export default function Contact() {
     setSubmitStatus('idle');
 
     try {
-      console.log('Sending data:', formData);
-      const response = await fetch('http://localhost:3000/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const result = await emailjs.send(
+        import.meta.env.VITE_PUBLIC_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_PUBLIC_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: 'Andrea',
         },
-        body: JSON.stringify(formData),
-      });
+        import.meta.env.VITE_PUBLIC_EMAILJS_PUBLIC_KEY
+      );
 
-      console.log('Response status:', response.status);
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Error details:', errorData);
-        throw new Error('Failed to send message');
-      }
-
+      console.log('Email sent successfully:', result);
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error('Error sending email:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
